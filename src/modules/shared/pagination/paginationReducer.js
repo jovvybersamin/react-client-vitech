@@ -25,6 +25,13 @@ export default (
 
         switch (type) {
 
+            case actions.SELECTEDS_CHANGED: {
+                return {
+                    ...state,
+                    selectedKeys: payload || [],
+                };
+            }
+
             case actions.RESETTED: {
                 return {
                     ...initialData

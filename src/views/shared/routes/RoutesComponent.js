@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import routes from "views/routes";
 import actions from "modules/auth/authActions";
 import PublicRoute from 'views/shared/routes/PublicRoute';
@@ -28,6 +28,16 @@ const RoutesComponent = ({ token, currentUser, dispatch }) => {
 
             {routes.privateRoutes.map((route) => (
                 <PrivateRoute
+                    key={route.path}
+                    exact
+                    path={route.path}
+                    currentUser={currentUser}
+                    component={route.component}
+                />
+            ))}
+
+            {routes.errorRoutes.map((route) => (
+                <Route
                     key={route.path}
                     exact
                     path={route.path}

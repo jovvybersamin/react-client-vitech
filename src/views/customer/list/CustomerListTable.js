@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import moment from "moment";
 import selectors from "modules/customer/list/customerListSelectors";
+import destroySelectors from "modules/customer/destroy/customerDestroySelectors";
 import actions from "modules/customer/list/customerListActions";
+import destroyActions from "modules/customer/destroy/customerDestroyActions";
 import { Table, Popconfirm } from 'antd';
 import { Link } from "react-router-dom";
 import TableWrapper from 'views/shared/styles/TableWrapper';
+import ButtonLink from 'views/shared/styles/ButtonLink';
 
 class CustomerListTable extends Component {
+
+    doDestroy = (id) => {
+        const { dispatch } = this.props;
+        dispatch(destroyActions.doDestroy(id, true));
+    }
 
     columns = [
         {
@@ -22,6 +31,38 @@ class CustomerListTable extends Component {
             dataIndex: 'email',
             sorter: true,
         },
+        {
+            title: 'Created At',
+            dataIndex: 'created_at',
+            render: (value) => moment(value).format('YYYY-MM-DD hh:mm a'),
+            sorter: true,
+        },
+        {
+            title: 'Updated At',
+            dataIndex: 'updated_at',
+            render: (value) => moment(value).format('YYYY-MM-DD hh:mm a'),
+            sorter: true,
+        },
+        {
+            title: '',
+            dataIndex: '',
+            width: '160px',
+            render: (_, record) => (
+                <div className="table-actions">
+                    <Link to={`/customers/${record.id}/edit`}>Edit</Link>
+                    <Popconfirm
+                        title="Are you sure?"
+                        onConfirm={() => this.doDestroy(record.id)}
+                        okText="Yes"
+                        noText="No"
+                    >
+                        <ButtonLink>
+                            Delete
+                        </ButtonLink>
+                    </Popconfirm>
+                </div>
+            )
+        }
     ];
 
     handleTableChange = (pagination, filters, sorter) => {
@@ -58,7 +99,7 @@ class CustomerListTable extends Component {
 
 function select(state) {
     return {
-        loading: selectors.selectLoading(state),
+        loading: selectors.selectLoading(state) || destroySelectors.selectLoading(state),
         rows: selectors.selectRows(state),
         pagination: selectors.selectPagination(state)
     }

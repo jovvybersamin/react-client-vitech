@@ -1,4 +1,5 @@
 import _ from "lodash"
+import Errors from "modules/shared/error/error";
 
 export default (
     prefix,
@@ -17,6 +18,14 @@ export default (
         PAGINATION_CHANGED: `${prefix}_PAGINATION_CHANGED`,
 
         SORTER_CHANGED: `${prefix}_SORTER_CHANGED`,
+
+
+        doChangeSelected(payload) {
+            return {
+                type: actions.SELECTEDS_CHANGED,
+                payload,
+            };
+        },
 
         doReset: () => async (dispatch) => {
             dispatch({
@@ -81,9 +90,14 @@ export default (
 
 
             } catch (error) {
+
+                Errors.handle(error);
+
                 dispatch({
                     type: actions.FETCH_FAILURE
                 });
+
+
             }
         }
     }

@@ -8,6 +8,12 @@ const PublicRoute = ({
     ...rest
 }) => {
 
+    function getStateFrom(state) {
+        if (state) {
+            return state.from;
+        }
+        return null;
+    }
 
 
     return (
@@ -17,6 +23,13 @@ const PublicRoute = ({
                 const permissionChecker = new PermissionChecker(currentUser);
 
                 if (permissionChecker.isAuthenticated) {
+                    const { location } = props;
+
+                    if (getStateFrom(location.state)) {
+                        return <Redirect to={location.state.from} />
+                    }
+
+                    console.log(location);
                     return <Redirect to="/" />
                 }
 

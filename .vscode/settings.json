@@ -3,6 +3,7 @@
     "javascript.preferences.importModuleSpecifier": "non-relative",
     "workbench.colorCustomizations": {
         "activityBar.background": "#ffd133",
+        "activityBar.activeBackground": "#ffd133",
         "activityBar.activeBorder": "#009f7b",
         "activityBar.foreground": "#15202b",
         "activityBar.inactiveForeground": "#15202b99",

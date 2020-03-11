@@ -18,6 +18,7 @@ const Menu = (props) => {
         const url = props.url;
 
         const match = routes.privateRoutes.find((option) => {
+
             if (option.menu.exact) {
                 return url === option.path;
             }
@@ -25,9 +26,18 @@ const Menu = (props) => {
             return url.startsWith(option.path);
         });
 
+
+
         if (match) {
+
+            // if (match.parent) {
+            //     return [match.parent];
+            // }
+
             return [match.path];
         }
+
+        return null;
     }
 
     return (

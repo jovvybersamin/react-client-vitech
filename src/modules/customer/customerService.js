@@ -6,12 +6,6 @@ export default class CustomerService {
         utils.setAuthToken();
         const header = utils.jsonHeader();
 
-        console.group('Customer Service');
-        console.log('Fetching List.');
-
-        console.log('Order by:', sorter);
-        console.log('Pagination:', pagination);
-
         const response = await axios.get('/customers', {
             params: {
                 ...sorter,
@@ -21,10 +15,43 @@ export default class CustomerService {
             }
         }, header);
 
-        console.log(response);
-
-        console.groupEnd();
 
         return response.data;
+    }
+
+    static async find(id) {
+        utils.setAuthToken();
+        const header = utils.jsonHeader();
+        const response = await axios.get(`/customers/${id}`, {}, header);
+
+        return response.data.data;
+    }
+
+    static async create(values) {
+        utils.setAuthToken();
+        const header = utils.jsonHeader();
+        const body = JSON.stringify(values);
+        const response = await axios.post('/customers', body, header);
+        return response;
+    }
+
+    static async update(id, values) {
+        utils.setAuthToken();
+        const header = utils.jsonHeader();
+        const body = JSON.stringify({ ...values, _method: 'PUT' });
+        const response = await axios.post(`/customers/${id}`, body, header);
+        return response;
+    }
+
+    static async destroyAll(ids) {
+        utils.setAuthToken();
+        const header = utils.jsonHeader();
+        const response = await axios.delete(`/customers`, {
+            data: {
+                ids: ids,
+            },
+            ...header
+        });
+        return response;
     }
 }

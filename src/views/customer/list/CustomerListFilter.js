@@ -6,7 +6,9 @@ import { Formik } from 'formik';
 import FilterWrapper from 'views/shared/styles/FilterWrapper';
 import actions from "modules/customer/list/customerListActions";
 import InputFormItem from 'views/shared/forms/items/InputFormItem';
+import DatePickerRangeFormItem from 'views/shared/forms/items/DatePickerRangeFormItem';
 import selectors from "modules/customer/list/customerListSelectors";
+import { formItemLayout } from 'views/shared/styles/FormWrapper';
 
 
 class CustomerListFilter extends Component {
@@ -49,6 +51,15 @@ class CustomerListFilter extends Component {
                                     <InputFormItem
                                         name="search_query"
                                         label="Search"
+                                        layout={formItemLayout}
+                                    />
+                                </Col>
+                                <Col md={24} lg={12}>
+                                    <DatePickerRangeFormItem
+                                        label="Created At"
+                                        name="created_at_range"
+                                        layout={formItemLayout}
+                                        showTime
                                     />
                                 </Col>
                             </Row>

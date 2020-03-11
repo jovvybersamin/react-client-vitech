@@ -3,7 +3,7 @@ import { Form, Input } from 'antd';
 import PropTypes from 'prop-types';
 import FormErrors from 'views/shared/forms/formErrors';
 import { FastField } from 'formik';
-import { formItemLayout } from 'views/shared/forms/styles/FormWrapper';
+import { formItemLayout } from 'views/shared/styles/FormWrapper';
 
 
 export const InputFormItemNotFast = ({

@@ -13,6 +13,7 @@ const PrivateRoute = ({
             render={props => {
                 const permissionChecker = new PermissionChecker(currentUser);
                 if (!permissionChecker.isAuthenticated) {
+                    console.log('Redirect to /auth', props.location);
                     return <Redirect to={{
                         pathname: "/auth/signin",
                         state: { from: props.location }
